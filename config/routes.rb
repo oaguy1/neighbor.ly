@@ -7,7 +7,7 @@ Rails.application.routes.draw do
         confirmations:  'api/v1/users/confirmations'
       }
 
-      resources :users
+      resources :users, :favors
     end
   end
 end

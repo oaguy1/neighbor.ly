@@ -10,10 +10,62 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160702153500) do
+ActiveRecord::Schema.define(version: 20160711023745) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "attached_images", force: :cascade do |t|
+    t.string   "url"
+    t.string   "caption"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "favor_attached_images", force: :cascade do |t|
+    t.integer  "favor_id"
+    t.integer  "attached_image_id"
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
+    t.index ["attached_image_id"], name: "index_favor_attached_images_on_attached_image_id", using: :btree
+    t.index ["favor_id"], name: "index_favor_attached_images_on_favor_id", using: :btree
+  end
+
+  create_table "favor_locations", force: :cascade do |t|
+    t.integer  "favor_id"
+    t.integer  "location_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.index ["favor_id"], name: "index_favor_locations_on_favor_id", using: :btree
+    t.index ["location_id"], name: "index_favor_locations_on_location_id", using: :btree
+  end
+
+  create_table "favors", force: :cascade do |t|
+    t.integer  "user_id"
+    t.string   "title"
+    t.text     "message"
+    t.string   "favor_type"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_favor_on_user_id", using: :btree
+  end
+
+  create_table "locations", force: :cascade do |t|
+    t.float    "lat"
+    t.float    "lon"
+    t.string   "address"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "user_locations", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "location_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.index ["location_id"], name: "index_user_locations_on_location_id", using: :btree
+    t.index ["user_id"], name: "index_user_locations_on_user_id", using: :btree
+  end
 
   create_table "users", force: :cascade do |t|
     t.string   "name"

@@ -22,6 +22,12 @@ gem 'capistrano-rails', group: :development
 gem 'rack-cors'
 gem 'rack-attack'
 
+# Models
+gem 'geocoder'
+
+# Linting
+gem 'rubocop'
+
 group :development, :test do
   gem 'byebug', platform: :mri
   gem 'pry'
