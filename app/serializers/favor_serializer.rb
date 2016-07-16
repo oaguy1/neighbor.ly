@@ -3,4 +3,5 @@ class FavorSerializer < ActiveModel::Serializer
 
   has_one :location
   has_many :attached_images
+  has_many :favor_responses
 end

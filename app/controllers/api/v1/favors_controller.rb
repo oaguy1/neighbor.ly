@@ -1,4 +1,6 @@
 class Api::V1::FavorsController < Api::V1Controller
+  before_action :find_favor, only: [:update, :delete]
+
   def index
     @favors = Favor.where(user: @current_user)
     render json: @favors
@@ -39,9 +41,6 @@ class Api::V1::FavorsController < Api::V1Controller
   end
 
   def update
-    favor = Favor.where(id: params[:id]).first
-    render nothing: true, status: :not_found && return unless favor.present?
-
     parsed_params = favor_params
     if parsed_params.include?(:location)
       parsed_params[:location] = Location.new(parsed_params[:location])
@@ -60,19 +59,23 @@ class Api::V1::FavorsController < Api::V1Controller
       end
     end
 
-    if favor.update_attributes(parsed_params)
-      render json: favor
+    if @favor.update_attributes(parsed_params)
+      render json: @favor
     else
-      render json: validation_error_message(favor)
+      render json: validation_error_message(@favor)
     end
   end
 
   def destroy
-    favor = Favor.find(params[:id])
-    favor.delete unless favor.blank?
+    @favor.delete unless favor.blank?
   end
 
   private
+
+  def find_favor
+    @favor = Favor.where(id: params[:id]).first
+    render nothing: true, status: :not_found && return unless favor.present?
+  end
 
   def favors_params
     params.permit(favors: [:title, :message, :favor_type, location: [:lat, :lon], attached_images: [:url, :caption]])

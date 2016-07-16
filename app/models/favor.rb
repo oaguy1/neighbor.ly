@@ -7,6 +7,8 @@ class Favor < ApplicationRecord
   has_many :favor_attached_images
   has_many :attached_images, through: :favor_attached_images
 
+  has_many :favor_responses
+
   validates :title, presence: true
   validates :favor_type, presence: true, inclusion: %w"moving cooking cleaning borrow small\ gift"
 end
