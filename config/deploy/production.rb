@@ -8,7 +8,7 @@ namespace :custom do
       puts "================Starting Docker setup===================="
       execute "cp /home/deploy/secrets.yml #{deploy_to}/current/config/secrets.yml"
       execute "cd #{deploy_to}/current && docker-compose build"
-      execute "cd #{deploy_to}/current && docker-compose stop rails9; echo 0"
+      execute "cd #{deploy_to}/current && docker-compose stop rails; echo 0"
       execute "cd #{deploy_to}/current && docker-compose rm --all rails; echo 0"
       execute "cd #{deploy_to}/current && docker-compose run rails rails db:create RAILS_ENV=production"
       execute "cd #{deploy_to}/current && docker-compose run rails rails db:setup RAILS_ENV=production"
