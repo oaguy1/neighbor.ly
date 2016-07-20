@@ -22,11 +22,16 @@ module NeighborLy
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
 
-    config.autoload_paths << Rails.root.join('lib')
-
     # Only loads a smaller set of middleware suitable for API only apps.
     # Middleware like session, flash, cookies can be added back manually.
     # Skip views, helpers and assets when generating a new resource.
     config.api_only = true
+
+
+    # Configure Rack middleware to guard against DDOS and other API nasties
+    config.middleware.use Rack::Attack
+
+    # Autoload the following dirs
+    config.autoload_paths << Rails.root.join('lib')
   end
 end
