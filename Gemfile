@@ -15,9 +15,6 @@ gem 'jwt', '~> 1.5.4'
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 3.0'
 
-# Deployment
-gem 'capistrano-rails', group: :development
-
 # Security
 gem 'rack-cors'
 gem 'rack-attack'

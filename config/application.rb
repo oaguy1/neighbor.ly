@@ -26,11 +26,5 @@ module NeighborLy
     # Middleware like session, flash, cookies can be added back manually.
     # Skip views, helpers and assets when generating a new resource.
     config.api_only = true
-
-    # Configure Rack middleware to guard against DDOS and other API nasties
-    config.middleware.use Rack::Attack
-
-    # Autoload the following dirs
-    config.autoload_paths << Rails.root.join('lib')
   end
 end

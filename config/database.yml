@@ -3,17 +3,20 @@ default: &default
   encoding: unicode
   pool: 5
   timeout: 5000
-  username: postgres
-  host: db
 
 development:
   <<: *default
   database: neighborly_development
+  username: neighborly
+  password: neighborly
 
 test:
   <<: *default
   database: neighborly_test
+  username: neighborly
+  password: neighborly
 
 production:
   <<: *default
   database: neighborly_production
+  url: <%= ENV['POSTGRESQL_URL'] %>
